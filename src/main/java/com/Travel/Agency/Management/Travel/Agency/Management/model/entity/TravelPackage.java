@@ -1,5 +1,6 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.model.entity;
 
+import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.Facility;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
