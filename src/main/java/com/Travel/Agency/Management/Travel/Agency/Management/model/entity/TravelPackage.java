@@ -20,7 +20,6 @@ public class TravelPackage {
     private Long id;
     private String title;
     private String destination;
-    private Category category;
     private String description;
     private LocalDate startdate;
     private LocalDate endDate;
