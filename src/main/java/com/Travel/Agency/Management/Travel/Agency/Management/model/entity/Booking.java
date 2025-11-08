@@ -1,5 +1,7 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.model.entity;
 
+import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.BookingStatus;
+
 import java.time.LocalDateTime;
 
 public class Booking {

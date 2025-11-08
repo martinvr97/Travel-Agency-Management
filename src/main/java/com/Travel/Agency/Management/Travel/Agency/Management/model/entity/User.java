@@ -1,7 +1,12 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.model.entity;
 
+import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.Gender;
+import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.Role;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
+
 
 public class User {
     private Long id;
