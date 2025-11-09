@@ -34,9 +34,9 @@ public class User {
     private String email;
     @NotBlank
     private String password;
-    @NotBlank
-    private LocalDate birthday;
     @Past
+    private LocalDate birthday;
+    @NotBlank
     private String nationality;
     @Enumerated(EnumType.STRING)
     private Gender gender;
