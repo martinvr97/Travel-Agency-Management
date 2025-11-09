@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthController {
-    @Autowired
+
     private final UserService userService;
 
+    @Autowired
     public AuthController(UserService userService) {
         this.userService = userService;
     }
@@ -25,27 +26,27 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
         model.addAttribute("user", new User());
-        return "public/register";
+        return "register";
     }
-    //BindingResult ehste nje objekt qe mban rezultatin e validimit te formes se input ne front
 
     @PostMapping("/register")
     public String processRegister(@Valid @ModelAttribute("user") User user,
                                   BindingResult result,
                                   Model model) {
         if (result.hasErrors()) {
-            return "public/register";
+            return "register";
         }
         userService.userRegistration(user);
         model.addAttribute("successMessage", "Registration successful! Please log in.");
         return "redirect:/login";
     }
 
-        @GetMapping("/login")
-        public String showLogin() {
-            return "public/login";
-        }
-
+    @GetMapping("/login")
+    public String showLoginPage(Model model) {
+        model.addAttribute("user", new User());
+        return "login"; // looks for templates/login.html
     }
+}
+
 
 
