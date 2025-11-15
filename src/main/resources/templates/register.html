@@ -10,7 +10,10 @@
      <input type="password" th:field="*{password}" placeholder="Password" required>
      <input type="date" th:field="*{birthday}" placeholder="Birthday" required>
      <input type="text" th:field="*{nationality}" placeholder="Nationality" required>
-     <input type="text" th:field="*{gender}" placeholder="Gender" required>
+     <select th:field="*{gender}" required>
+         <option value="FEMALE">Female</option>
+         <option value="MALE">Male</option>
+     </select>
      <button type="submit">Register</button>
  </form>
  <a th:href="@{/login}">Already have an account? Login</a>
