@@ -1,14 +1,11 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.services;
 
-import com.Travel.Agency.Management.Travel.Agency.Management.model.dto.response.UserResponseDto;
 import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.User;
 import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.Role;
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +24,6 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    //Metoda register a new user
 
     public User userRegistration(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

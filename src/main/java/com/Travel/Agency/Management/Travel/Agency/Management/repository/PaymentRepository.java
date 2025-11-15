@@ -4,7 +4,6 @@ import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.Paymen
 import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.PaymentStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository

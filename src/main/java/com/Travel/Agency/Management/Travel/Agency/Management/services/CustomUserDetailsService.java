@@ -1,7 +1,6 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.services;
 
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.UserRepository;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .roles(user.getRole().name()) // example: ADMIN, USER, etc.
+                .roles(user.getRole().name())
                 .build();
     }
 }

@@ -4,7 +4,6 @@ import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.Booking
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -19,5 +18,5 @@ public class BookingResponseDto {
     private BookingStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime confirmedAt;
-    private PaymentResponseDto payment; // optional if payment exists
+    private PaymentResponseDto payment;
 }

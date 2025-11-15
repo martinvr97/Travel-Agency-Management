@@ -5,7 +5,6 @@ import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.User;
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.BookingRepository;
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +23,12 @@ public class BookingController {
 
     @GetMapping("/my")
     public String viewMyBookings(Authentication authentication, Model model) {
-        //Get current user
         String email = authentication.getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        //List all bookings
         List<Booking> userBookings = bookingRepository.findByUser(user);
 
-        //Add data to the model
         model.addAttribute("bookings", userBookings);
         model.addAttribute("user", user);
         return "my-bookings";
