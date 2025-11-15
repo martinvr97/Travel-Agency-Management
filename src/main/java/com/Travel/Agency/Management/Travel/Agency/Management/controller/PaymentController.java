@@ -12,6 +12,7 @@ import com.Travel.Agency.Management.Travel.Agency.Management.repository.TravelPa
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class PaymentController {
     private final BookingRepository bookingRepository;
     private final PaymentRepository paymentRepository;
     private final UserRepository userRepository;
+
     public PaymentController(TravelPackageRepository travelPackageRepository,
                              BookingRepository bookingRepository,
                              PaymentRepository paymentRepository,
@@ -40,20 +42,20 @@ public class PaymentController {
         model.addAttribute("pkg", selectedPackage);
         return "payment";
     }
+
+    @Transactional
     @PostMapping("/confirm/{packageId}")
     public String confirmPayment(@PathVariable Long packageId,
                                  @RequestParam int numPeople,
                                  @RequestParam String method,
                                  Authentication authentication,
                                  Model model) {
-        // :white_check_mark: 1. Find user by email (from logged-in session)
         String email = authentication.getName();
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        // :white_check_mark: 2. Get the selected travel package
         TravelPackage pkg = travelPackageRepository.findById(packageId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid package ID: " + packageId));
-        // :white_check_mark: 3. Create a new booking
+        // :one: Create booking
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setTravelPackage(pkg);
@@ -62,15 +64,17 @@ public class PaymentController {
         booking.setStatus(BookingStatus.CONFIRM);
         booking.setCreatedAt(LocalDateTime.now());
         booking.setConfimedAt(LocalDateTime.now());
-        bookingRepository.save(booking);
-        // :white_check_mark: 4. Create a new payment linked to booking
+        // :two: Create payment
         Payment payment = new Payment();
-        payment.setBooking(booking);
         payment.setStatus(PaymentStatus.SUCCESS);
         payment.setPaidAt(LocalDateTime.now());
         payment.setAmount(booking.getTotalPrice());
-        paymentRepository.save(payment);
-        // :white_check_mark: 5. Show confirmation details
+        // :three: Link both sides
+        payment.setBooking(booking);
+        booking.setPayment(payment);
+        // :four: Save (cascade handles payment)
+        bookingRepository.save(booking);
+        // :five: Pass data to view
         model.addAttribute("pkg", pkg);
         model.addAttribute("numPeople", numPeople);
         model.addAttribute("total", booking.getTotalPrice());

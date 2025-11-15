@@ -71,7 +71,9 @@
                 <div class="card-footer bg-white border-0">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price">€<span th:text="${pkg.pricePerPerson}"></span></span>
-                        <a th:href="@{'/payments/' + ${pkg.id}}" class="btn btn-sm btn-primary">Book Now</a>
+                        <form th:action="@{'/payments/' + ${pkg.id}}" method="get">
+                            <button type="submit" class="btn btn-sm btn-primary">Book Now</button>
+                        </form>
                     </div>
                 </div>
             </div>
