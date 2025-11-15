@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard - Travel Packages</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; background-color: #F8F9FA; }
+        .package-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: white;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .package-card img { width: 250px; height: 150px; border-radius: 6px; object-fit: cover; }
+        .package-header { font-size: 1.2em; color: #D9534F; font-weight: bold; }
+    </style>
+</head>
+<body>
+<h2>Available Travel Packages</h2>
+<div th:each="pkg : ${packages}" class="package-card">
+    <div class="package-header" th:text="${pkg.title}"></div>
+    <div><strong>Destination:</strong> <span th:text="${pkg.destination}"></span></div>
+    <div><strong>Dates:</strong>
+        <span th:text="${pkg.startDate}"></span> -
+        <span th:text="${pkg.endDate}"></span>
+    </div>
+    <div><strong>Price:</strong> €<span th:text="${pkg.pricePerPerson}"></span></div>
+    <div><strong>Available slots:</strong> <span th:text="${pkg.availableSlots}"></span></div>
+    <div><strong>Rating:</strong> <span th:text="${pkg.averageRating}"></span>/5</div>
+    <div th:if="${pkg.images != null}">
+        <img th:src="${pkg.images[0]}" alt="Travel Image">
+    </div>
+</div>
+</body>
+</html>
