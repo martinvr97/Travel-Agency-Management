@@ -70,7 +70,7 @@ public class TravelPackageSeeder implements CommandLineRunner {
             pkg4.setPricePerPerson(2599.99);
             pkg4.setAverageRating(4.95);
             pkg4.setCreatedAt(LocalDateTime.now());
-            pkg4.setImages(List.of("https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=60"));
+            pkg4.setImages(List.of("https://letsgomaldives.com/wp-content/uploads/2015/11/amari-havodda-23932-1450x816.jpg"));
 
             TravelPackage pkg5 = new TravelPackage();
             pkg5.setTitle("New York Highlights Tour");
@@ -83,7 +83,7 @@ public class TravelPackageSeeder implements CommandLineRunner {
             pkg5.setPricePerPerson(1599.00);
             pkg5.setAverageRating(4.7);
             pkg5.setCreatedAt(LocalDateTime.now());
-            pkg5.setImages(List.of("https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e"));
+            pkg5.setImages(List.of("https://lp-cms-production.imgix.net/2020-11/shutterstockRF_259501811.jpg?auto=format&fit=crop&sharp=10&vib=20&ixlib=react-8.6.4&w=850&q=35&dpr=3"));
             travelPackageRepository.saveAll(List.of(pkg1, pkg2, pkg3, pkg4, pkg5));
             System.out.println(":white_check_mark: Seeded 5 travel packages successfully!");
         }
