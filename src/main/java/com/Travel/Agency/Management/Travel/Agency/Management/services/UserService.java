@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +33,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.getRole() == null)
             user.setRole(Role.USER);
+        user.setCreatedAt(LocalDateTime.now());
+        System.out.println("Saving user: " + user.getEmail());
         return userRepository.save(user);
     }
 
