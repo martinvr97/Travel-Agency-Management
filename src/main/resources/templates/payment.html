@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-success text-center mb-4">:white_check_mark: Booking Confirmed!</h2>
+        <p><strong>Package:</strong> <span th:text="${pkg.title}"></span></p>
+        <p><strong>Destination:</strong> <span th:text="${pkg.destination}"></span></p>
+        <p><strong>Number of People:</strong> <span th:text="${numPeople}"></span></p>
+        <p><strong>Payment Method:</strong> <span th:text="${method}"></span></p>
+        <p><strong>Total Paid:</strong> €<span th:text="${total}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${status}"></span></p>
+        <div class="text-center mt-4">
+            <a href="/dashboard" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

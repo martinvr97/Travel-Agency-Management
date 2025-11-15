@@ -71,7 +71,7 @@
                 <div class="card-footer bg-white border-0">
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price">€<span th:text="${pkg.pricePerPerson}"></span></span>
-                        <button class="btn btn-sm btn-primary">Book Now</button>
+                        <a th:href="@{'/payments/' + ${pkg.id}}" class="btn btn-sm btn-primary">Book Now</a>
                     </div>
                 </div>
             </div>
