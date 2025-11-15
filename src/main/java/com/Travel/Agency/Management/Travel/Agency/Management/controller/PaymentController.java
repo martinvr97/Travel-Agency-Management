@@ -55,6 +55,19 @@ public class PaymentController {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         TravelPackage pkg = travelPackageRepository.findById(packageId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid package ID: " + packageId));
+
+        //check nese ka slote ekzistuese
+
+        if (pkg.getAvailableSlots() < numPeople) {
+            model.addAttribute("error", "Not enough available slots for this package!");
+            model.addAttribute("pkg", pkg);
+            return "payment";
+        }
+
+        //Zvogelo numrin e sloteve qe jane te disponueshme
+        pkg.setAvailableSlots(pkg.getAvailableSlots() - numPeople);
+        travelPackageRepository.save(pkg);
+
         // :one: Create booking
         Booking booking = new Booking();
         booking.setUser(user);
