@@ -1,14 +1,9 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.controller;
 
-import com.Travel.Agency.Management.Travel.Agency.Management.model.dto.request.UserRequestDto;
-import com.Travel.Agency.Management.Travel.Agency.Management.model.dto.response.UserResponseDto;
 import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.User;
 import com.Travel.Agency.Management.Travel.Agency.Management.services.UserService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -33,11 +28,11 @@ public class AuthController {
     public String processRegister(@ModelAttribute("user") User user,
                                   BindingResult result,
                                   Model model) {
-        System.out.println("🚀 Reached processRegister method!");
+        System.out.println("Reached processRegister method!");
 
         if (result.hasErrors()) {
             result.getAllErrors().forEach(e ->
-                    System.out.println("❌ Binding error: " + e.toString()));
+                    System.out.println("Binding error: " + e.toString()));
             return "register";
         }
 
@@ -50,7 +45,7 @@ public class AuthController {
     @GetMapping("/login")
     public String showLoginPage(Model model) {
         model.addAttribute("user", new User());
-        return "login"; // looks for templates/login.html
+        return "login";
     }
 }
 

@@ -4,7 +4,7 @@ import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.Travel
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.TravelPackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+
 
 import java.util.List;
 

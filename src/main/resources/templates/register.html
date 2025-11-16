@@ -2,86 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register</title>
-
-    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <style>
-        body {
-            background: #f3f5f7;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-
-        .card {
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.10);
-        }
-
-        .form-control:focus, .form-select:focus {
-            border-color: #4a90e2;
-            box-shadow: 0 0 6px rgba(74,144,226,0.4);
-        }
-
-        .btn-primary {
-            background-color: #4a90e2;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #3b7ac3;
-        }
-
-        .login-link {
-            text-decoration: none;
-            color: #4a90e2;
-        }
-
-        .login-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-
 <body>
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card">
-
-                <h3 class="text-center mb-4 fw-bold">Register</h3>
-
+                <h3 class="text-center mb-4 fw-bold">Create an Account</h3>
                 <form th:action="@{/register}" th:object="${user}" method="post">
-
                     <div class="mb-3">
                         <input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last Name" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="email" class="form-control" th:field="*{email}" placeholder="Email" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="password" class="form-control" th:field="*{password}" placeholder="Password" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="date" class="form-control" th:field="*{birthday}" required>
                     </div>
-
                     <div class="mb-3">
                         <input type="text" class="form-control" th:field="*{nationality}" placeholder="Nationality" required>
                     </div>
-
                     <div class="mb-3">
                         <select class="form-select" th:field="*{gender}" required>
                             <option value="">Select Gender</option>
@@ -89,22 +37,15 @@
                             <option value="MALE">Male</option>
                         </select>
                     </div>
-
                     <button type="submit" class="btn btn-primary w-100">Register</button>
-
                 </form>
-
                 <div class="text-center mt-3">
                     <a th:href="@{/login}" class="login-link">Already have an account? Login</a>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

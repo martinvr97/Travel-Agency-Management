@@ -33,7 +33,7 @@ public class SecurityConfig {
                 .formLogin(login -> login
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .usernameParameter("email")   // important!
+                        .usernameParameter("email")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/dashboard",true)
                         .permitAll()
@@ -43,7 +43,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
-                .userDetailsService(userDetailsService); // :point_left: tell Spring where to load users
+                .userDetailsService(userDetailsService);
         return http.build();
     }
 }

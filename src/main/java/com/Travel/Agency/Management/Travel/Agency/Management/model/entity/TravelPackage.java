@@ -5,11 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,17 +31,14 @@ public class TravelPackage {
     private double averageRating;
     private int reviewCount;
 
-    //Create a separate table that stores all the facilities for each travel package.
     @ElementCollection(targetClass = Facility.class)
     @Enumerated(EnumType.STRING)
     private Set<Facility> facilities;
 
-    //Create a separate table that stores all the images for each travel package.
     @ElementCollection
     private List<String> images;
 
     private LocalDateTime createdAt;
-
 
     @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL)
     private List<Booking> bookings;
