@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -35,8 +36,8 @@ public class TravelPackage {
     @Enumerated(EnumType.STRING)
     private Set<Facility> facilities;
 
-    @ElementCollection
-    private List<String> images;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> images=new ArrayList<>();
 
     private LocalDateTime createdAt;
 
