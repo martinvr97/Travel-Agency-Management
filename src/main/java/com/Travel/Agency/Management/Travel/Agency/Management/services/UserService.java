@@ -6,9 +6,9 @@ import com.Travel.Agency.Management.Travel.Agency.Management.repository.UserRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -38,17 +38,24 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public Optional<User> findByEmail (String email) {
+        return userRepository.findByEmail(email);
+    }
+
+
+
+
     public void updateUser(User user){
         User existing= userRepository.findById(user.getId())
                 .orElseThrow(()->new RuntimeException("User not found"));
-                existing.setFirstName(existing.getFirstName());
-                existing.setLastName(existing.getLastName());
-                existing.setEmail(existing.getEmail());
-                existing.setPassword(existing.getPassword());
-                existing.setBirthday(existing.getBirthday());
-                existing.setNationality(existing.getNationality());
-                existing.setGender(existing.getGender());
-                existing.setRole(existing.getRole());
-                existing.setCreatedAt(existing.getCreatedAt());
+        existing.setFirstName(existing.getFirstName());
+        existing.setLastName(existing.getLastName());
+        existing.setEmail(existing.getEmail());
+        existing.setPassword(existing.getPassword());
+        existing.setBirthday(existing.getBirthday());
+        existing.setNationality(existing.getNationality());
+        existing.setGender(existing.getGender());
+        existing.setRole(existing.getRole());
+        existing.setCreatedAt(existing.getCreatedAt());
     }
 }
