@@ -44,6 +44,11 @@
         Confirm Your Booking
     </div>
     <div class="card-body">
+        <!-- ERROR MESSAGE -->
+        <div th:if="${error}" class="alert alert-danger text-center">
+            <p th:text="${error}"></p>
+        </div>
+
         <!-- Travel Package Info -->
         <div class="mb-3 text-center">
             <h4 th:text="${pkg.title}">Package Title</h4>
