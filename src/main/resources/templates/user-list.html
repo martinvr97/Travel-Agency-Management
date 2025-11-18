@@ -38,17 +38,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="text-primary fw-bold">User Management</h2>
+    <!-- Alert për search bosh -->
+    <div th:if="${searchError}" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <span th:text="${searchError}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+
+    <!-- Search by Name -->
+    <form th:action="@{/admin/users/search/name}" method="get" class="mb-3 d-flex">
+        <input type="text" name="keyword" placeholder="Search by first name" class="form-control me-2"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <!-- Search by Last Name -->
+    <form th:action="@{/admin/users/search/lastName}" method="get" class="mb-3 d-flex">
+        <input type="text" name="keyword" placeholder="Search by last name" class="form-control me-2"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <!-- Search by Email -->
+    <form th:action="@{/admin/users/search/email}" method="get">
+        <input type="text" name="email" placeholder="Search by Email" class="form-control me-2"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+
+    <h2 class="text-primary fw-bold mb-3">User List</h2>
 
     <table class="table table-hover table-bordered bg-white shadow-sm">
         <thead class="table-primary">
         <tr>
             <th>ID</th>
-            <th>Username</th>
+            <th>Full Name</th>
             <th>Email</th>
-            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -56,6 +77,7 @@
             <td th:text="${user.id}"></td>
             <td th:text="${user.firstName + ' ' + user.lastName}"></td>
             <td th:text="${user.email}"></td>
+            <td th:text="${user.createdAt}"></td>
             <td>
                 <form th:action="@{/admin/users/delete/{id}(id=${user.id})}" method="post" style="display:inline;">
                     <input type="hidden" name="_method" value="delete" />

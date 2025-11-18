@@ -27,7 +27,7 @@ public class TravelAgencyManagementApplication {
 				admin.setPassword(passwordEncoder.encode("admin123"));
 				admin.setRole(Role.ADMIN);
 				userRepository.save(admin);
-				System.out.println(":white_check_mark: Admin account created: admin@travel.com / admin123");
+				System.out.println("Admin account created: admin@travel.com / admin123");
 			}
 		};
 	}
