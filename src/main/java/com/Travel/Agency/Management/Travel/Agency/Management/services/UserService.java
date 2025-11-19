@@ -48,14 +48,14 @@ public class UserService {
     public void updateUser(User user){
         User existing= userRepository.findById(user.getId())
                 .orElseThrow(()->new RuntimeException("User not found"));
-                existing.setFirstName(existing.getFirstName());
-                existing.setLastName(existing.getLastName());
-                existing.setEmail(existing.getEmail());
-                existing.setPassword(existing.getPassword());
-                existing.setBirthday(existing.getBirthday());
-                existing.setNationality(existing.getNationality());
-                existing.setGender(existing.getGender());
-                existing.setRole(existing.getRole());
-                existing.setCreatedAt(existing.getCreatedAt());
+        existing.setFirstName(existing.getFirstName());
+        existing.setLastName(existing.getLastName());
+        existing.setEmail(existing.getEmail());
+        existing.setPassword(existing.getPassword());
+        existing.setBirthday(existing.getBirthday());
+        existing.setNationality(existing.getNationality());
+        existing.setGender(existing.getGender());
+        existing.setRole(existing.getRole());
+        existing.setCreatedAt(existing.getCreatedAt());
     }
 }
