@@ -20,4 +20,8 @@ public class TravelPackageService {
     public List<TravelPackage> getAllPackages() {
         return travelPackageRepository.findAll();
     }
+
+    public List<TravelPackage> findByDestination(String destination){
+        return travelPackageRepository.findByDestinationContainingIgnoreCase(destination);
+    }
 }

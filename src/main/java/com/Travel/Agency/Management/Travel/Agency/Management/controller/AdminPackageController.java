@@ -1,6 +1,7 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.controller;
 
 import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.TravelPackage;
+import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.User;
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.TravelPackageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,21 +25,18 @@ public class AdminPackageController {
 
     private final TravelPackageRepository travelPackageRepository;
 
-    // 🔹 1. List all packages
     @GetMapping
     public String listPackages(Model model) {
         model.addAttribute("packages", travelPackageRepository.findAll());
         return "package-list";
     }
 
-    // 🔹 2. Show create form
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("pkg", new TravelPackage());
         return "package-form";
     }
 
-    // 🔹 3. Handle create
     @PostMapping("/create")
     public String createPackage(@ModelAttribute("pkg") TravelPackage pkg,
                                 @RequestParam("imageFiles") List<MultipartFile> files) throws IOException {
@@ -61,8 +59,6 @@ public class AdminPackageController {
         return "redirect:/admin/packages";
     }
 
-
-    // 🔹 4. Show edit form
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         TravelPackage pkg = travelPackageRepository.findById(id)
@@ -71,7 +67,6 @@ public class AdminPackageController {
         return "package-form";
     }
 
-    // 🔹 5. Handle update
     @PostMapping("/update/{id}")
     public String updatePackage(@PathVariable Long id,
                                 @ModelAttribute("pkg") TravelPackage updatedPkg,
@@ -104,11 +99,17 @@ public class AdminPackageController {
         return "redirect:/admin/packages";
     }
 
-
-    // 🔹 6. Delete package
     @GetMapping("/delete/{id}")
     public String deletePackage(@PathVariable Long id) {
         travelPackageRepository.deleteById(id);
         return "redirect:/admin/packages";
+    }
+    @GetMapping("/search/destination")
+    public String searchByDestination(@RequestParam String destination, Model model) {
+        List<TravelPackage> pkg=travelPackageRepository.findByDestinationContainingIgnoreCase(destination);
+
+        model.addAttribute("packageList", pkg);
+        model.addAttribute("searchError", pkg.isEmpty() ? "No package found with destination: " + destination : null);
+        return "package-list";
     }
 }
