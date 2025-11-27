@@ -46,4 +46,5 @@ public class TravelPackage {
 
     @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL)
     private List<Review> reviews;
+
 }

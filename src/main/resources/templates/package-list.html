@@ -22,12 +22,16 @@
             object-fit: cover;
             border-radius: 6px;
         }
+        .booking-count {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #007bff;
+        }
     </style>
 </head>
 
 <body>
 
-<!-- Navbar -->
 <nav class="navbar navbar-dark bg-primary mb-4">
     <div class="container d-flex justify-content-between align-items-center">
         <a class="navbar-brand fw-bold" href="/dashboard">🌍 Admin Panel</a>
@@ -42,13 +46,11 @@
         <a href="/admin/packages/create" class="btn btn-success">➕ Add Package</a>
     </div>
 
-    <!-- 🔍 SEARCH FORM -->
     <form class="input-group mb-4" th:action="@{/admin/packages/search/destination}" method="get">
         <input type="text" name="destination" class="form-control" placeholder="Search by destination..." required>
         <button class="btn btn-primary" type="submit">Search</button>
     </form>
 
-    <!-- Show search error if no results -->
     <div th:if="${searchError != null}" class="alert alert-danger">
         <span th:text="${searchError}"></span>
     </div>
@@ -62,12 +64,12 @@
             <th>Destination</th>
             <th>Price (€)</th>
             <th>Available Slots</th>
+            <th>Booked Users</th>
             <th>Actions</th>
         </tr>
         </thead>
 
         <tbody>
-        <!-- If search results exist, show them -->
         <tr th:each="pkg : ${packageList != null ? packageList : packages}">
             <td th:text="${pkg.id}"></td>
 
@@ -80,6 +82,8 @@
             <td th:text="${pkg.destination}"></td>
             <td class="text-success fw-semibold" th:text="'€' + ${pkg.pricePerPerson}"></td>
             <td th:text="${pkg.availableSlots}"></td>
+
+            <td class="booking-count" th:text="${bookingCounts != null ? bookingCounts.get(pkg.id) : 0}"></td>
 
             <td>
                 <a th:href="@{'/admin/packages/edit/' + ${pkg.id}}" class="btn btn-sm btn-warning me-1">✏️ Edit</a>
