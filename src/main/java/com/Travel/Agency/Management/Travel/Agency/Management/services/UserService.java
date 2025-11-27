@@ -6,7 +6,10 @@ import com.Travel.Agency.Management.Travel.Agency.Management.repository.UserRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +29,10 @@ public class UserService {
 
 
     public User userRegistration(User user) {
+            int age = Period.between(user.getBirthday(), LocalDate.now()).getYears();
+            if (age < 18) {
+                throw new IllegalArgumentException("Mosha duhet të jetë 18+");
+            }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (user.getRole() == null)
             user.setRole(Role.USER);
