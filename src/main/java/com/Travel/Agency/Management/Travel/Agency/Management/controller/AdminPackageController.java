@@ -1,22 +1,20 @@
 package com.Travel.Agency.Management.Travel.Agency.Management.controller;
 
 import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.TravelPackage;
-import com.Travel.Agency.Management.Travel.Agency.Management.model.entity.User;
 import com.Travel.Agency.Management.Travel.Agency.Management.repository.TravelPackageRepository;
+import com.Travel.Agency.Management.Travel.Agency.Management.services.TravelPackageService; // Import i ndryshuar!
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/packages")
@@ -24,10 +22,20 @@ import java.util.UUID;
 public class AdminPackageController {
 
     private final TravelPackageRepository travelPackageRepository;
+    private final TravelPackageService travelPackageService; // Injektimi i ri
 
     @GetMapping
     public String listPackages(Model model) {
-        model.addAttribute("packages", travelPackageRepository.findAll());
+        List<TravelPackage> packageList = travelPackageRepository.findAll();
+
+        Map<Long, Long> bookingCounts = new HashMap<>();
+        for (TravelPackage pkg : packageList) {
+            long count = travelPackageService.getNumberOfBookingsForPackage(pkg.getId());
+            bookingCounts.put(pkg.getId(), count);
+        }
+
+        model.addAttribute("packages", packageList);
+        model.addAttribute("bookingCounts", bookingCounts);
         return "package-list";
     }
 
@@ -104,12 +112,21 @@ public class AdminPackageController {
         travelPackageRepository.deleteById(id);
         return "redirect:/admin/packages";
     }
+
     @GetMapping("/search/destination")
     public String searchByDestination(@RequestParam String destination, Model model) {
-        List<TravelPackage> pkg=travelPackageRepository.findByDestinationContainingIgnoreCase(destination);
+        List<TravelPackage> pkgList = travelPackageRepository.findByDestinationContainingIgnoreCase(destination);
 
-        model.addAttribute("packageList", pkg);
-        model.addAttribute("searchError", pkg.isEmpty() ? "No package found with destination: " + destination : null);
+        Map<Long, Long> bookingCounts = new HashMap<>();
+        for (TravelPackage pkg : pkgList) {
+            long count = travelPackageService.getNumberOfBookingsForPackage(pkg.getId());
+            bookingCounts.put(pkg.getId(), count);
+        }
+
+        model.addAttribute("packageList", pkgList);
+        model.addAttribute("bookingCounts", bookingCounts);
+        model.addAttribute("searchError", pkgList.isEmpty() ? "No package found with destination: " + destination : null);
+
         return "package-list";
     }
 }
