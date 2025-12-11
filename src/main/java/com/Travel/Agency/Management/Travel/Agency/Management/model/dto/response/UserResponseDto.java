@@ -5,7 +5,6 @@ import com.Travel.Agency.Management.Travel.Agency.Management.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
