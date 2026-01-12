@@ -8,16 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @Controller
 @RequestMapping("/profile")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserRepository userRepository;
-
-    // 🔹 1. Show user profile
     @GetMapping
     public String viewProfile(Authentication authentication, Model model) {
         String email = authentication.getName();
@@ -27,7 +23,6 @@ public class UserController {
         return "profile";
     }
 
-    // 🔹 2. Update user profile
     @PostMapping("/update")
     public String updateProfile(@ModelAttribute("user") User updatedUser, Authentication authentication) {
         String email = authentication.getName();
@@ -44,7 +39,6 @@ public class UserController {
         return "redirect:/profile?success";
     }
 
-    // 🔹 3. Delete user account
     @PostMapping("/delete")
     public String deleteAccount(Authentication authentication) {
         String email = authentication.getName();

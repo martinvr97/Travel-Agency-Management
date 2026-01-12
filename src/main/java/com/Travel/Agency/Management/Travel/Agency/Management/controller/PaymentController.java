@@ -56,19 +56,14 @@ public class PaymentController {
         TravelPackage pkg = travelPackageRepository.findById(packageId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid package ID: " + packageId));
 
-        //check nese ka slote ekzistuese
-
         if (pkg.getAvailableSlots() < numPeople) {
             model.addAttribute("error", "Not enough available slots for this package!");
             model.addAttribute("pkg", pkg);
             return "payment";
         }
-
-        //Zvogelo numrin e sloteve qe jane te disponueshme
         pkg.setAvailableSlots(pkg.getAvailableSlots() - numPeople);
         travelPackageRepository.save(pkg);
 
-        // :one: Create booking
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setTravelPackage(pkg);
@@ -77,17 +72,13 @@ public class PaymentController {
         booking.setStatus(BookingStatus.CONFIRM);
         booking.setCreatedAt(LocalDateTime.now());
         booking.setConfimedAt(LocalDateTime.now());
-        // :two: Create payment
         Payment payment = new Payment();
         payment.setStatus(PaymentStatus.SUCCESS);
         payment.setPaidAt(LocalDateTime.now());
         payment.setAmount(booking.getTotalPrice());
-        // :three: Link both sides
         payment.setBooking(booking);
         booking.setPayment(payment);
-        // :four: Save (cascade handles payment)
         bookingRepository.save(booking);
-        // :five: Pass data to view
         model.addAttribute("pkg", pkg);
         model.addAttribute("numPeople", numPeople);
         model.addAttribute("total", booking.getTotalPrice());

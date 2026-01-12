@@ -23,7 +23,6 @@ public class ReviewController {
     private final UserRepository userRepository;
     private final TravelPackageRepository travelPackageRepository;
 
-    // 🟢 Show review form (only after trip end date)
     @GetMapping("/add/{packageId}")
     public String showReviewForm(@PathVariable Long packageId, Authentication authentication, Model model) {
         String email = authentication.getName();
@@ -33,13 +32,11 @@ public class ReviewController {
         TravelPackage pkg = travelPackageRepository.findById(packageId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid package ID"));
 
-        // Restrict: only after trip end date
         if (pkg.getEndDate().isAfter(java.time.LocalDate.now())) {
             model.addAttribute("error", "You can only review this trip after it has ended.");
             return "redirect:/dashboard";
         }
 
-        // Restrict: only one review per user per package
         if (reviewRepository.existsByUserAndTravelPackage(user, pkg)) {
             model.addAttribute("error", "You already reviewed this trip.");
             return "redirect:/dashboard";
@@ -50,7 +47,6 @@ public class ReviewController {
         return "review-form";
     }
 
-    // 🟢 Handle review submission
     @PostMapping("/add/{packageId}")
     public String submitReview(@PathVariable Long packageId,
                                @ModelAttribute Review review,
@@ -67,7 +63,6 @@ public class ReviewController {
         review.setCreatedAt(LocalDateTime.now());
         reviewRepository.save(review);
 
-        // Update average rating
         var reviews = reviewRepository.findByTravelPackage(pkg);
         double avg = reviews.stream().mapToInt(Review::getRating).average().orElse(0);
         pkg.setAverageRating(avg);

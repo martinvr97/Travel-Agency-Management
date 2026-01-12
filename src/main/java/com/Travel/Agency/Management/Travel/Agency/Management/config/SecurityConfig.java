@@ -36,7 +36,8 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/dashboard",true)
+                        .defaultSuccessUrl("/dashboard", true)
+                        .failureUrl("/login?error")
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -45,6 +46,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .userDetailsService(userDetailsService);
+
         return http.build();
     }
 }

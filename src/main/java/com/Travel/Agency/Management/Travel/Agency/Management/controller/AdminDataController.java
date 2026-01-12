@@ -45,6 +45,7 @@ public class AdminDataController {
         }
         return "redirect:/admin/users";
     }
+
     @GetMapping("/search/name")
     public String searchByName(@RequestParam String keyword, Model model) {
         List<User> users = adminManagmentUserService.findByFirstName(keyword);
@@ -53,6 +54,7 @@ public class AdminDataController {
         model.addAttribute("searchError", users.isEmpty() ? "No users found with name: " + keyword : null);
         return "user-list";
     }
+
     @GetMapping("/search/lastName")
     public String searchByLastName(@RequestParam String keyword, Model model) {
         List<User> users = adminManagmentUserService.findByLastName(keyword);
@@ -61,7 +63,6 @@ public class AdminDataController {
         model.addAttribute("searchError", users.isEmpty() ? "No users found with last name: " + keyword : null);
         return "user-list";
     }
-
 
     @GetMapping("/search/email")
     public String getUserByEmail(@RequestParam String email, Model model) {

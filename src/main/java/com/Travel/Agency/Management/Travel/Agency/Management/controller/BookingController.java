@@ -35,7 +35,6 @@ public class BookingController {
         List<Booking> bookings = bookingRepository.findByUser(user);
         model.addAttribute("bookings", bookings);
 
-        // Add all user reviews to the model for easy lookup
         Map<Long, Review> userReviews = reviewRepository.findAll().stream()
                 .filter(r -> r.getUser().getId().equals(user.getId()))
                 .collect(Collectors.toMap(r -> r.getTravelPackage().getId(), r -> r));
